@@ -3,8 +3,8 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var app = express();
 
-var db = mongoose.connect('mongodb://localhost/stackcode');
-// mongoose.connect('mongodb://localhost/stackcode');
+var db = mongoose.connect('mongodb://vladimirjv:cetmar07059669@ds331135.mlab.com:31135/heroku_h34kk55n');
+// mongoose.connect('mongodb://vladimirjv:cetmar07059669@ds331135.mlab.com:31135/heroku_h34kk55n');
 // var db = mongoose.connection;
 // db.on('error', console.error.bind(console, 'connection error:'));
 // db.once('open', function () {
@@ -34,8 +34,18 @@ apiRouter.route('/contacts')
             }
         });
     });
-
+apiRouter.route('/contacts/:id')
+    .get(function (req,res) {
+        Contact.findById(req.params.id, function (err,contact) {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.json(contact);
+            }
+        });
+    });
 app.use('/api',apiRouter);
+
 app.get('/', function (req, res) {
     res.send('hello');
 });
