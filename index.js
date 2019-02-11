@@ -18,12 +18,6 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 var apiRouter = express.Router();
-apiRouter.route('/')
-    .get(function(req,res){
-        res.json({
-            message: "hello"
-        });
-    });
 apiRouter.route('/contacts')
     .get(function(req,res){
         Contact.find(function(err,contacts){
@@ -33,6 +27,11 @@ apiRouter.route('/contacts')
                 res.json(contacts);
             }
         });
+    })
+    .post(function (req,res) {
+        var contact = new Contact(req.body);
+        contact.save();
+        res.status(201).send(contact);
     });
 apiRouter.route('/contacts/:id')
     .get(function (req,res) {

@@ -12,7 +12,8 @@ var contactModel = new Schema({
         type: String
     },
     createdData:{
-        type: Date
+        type: Date,
+        default: Date.now()
     }
 });
 module.exports = mongoose.model('Contact', contactModel);
