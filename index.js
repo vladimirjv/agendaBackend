@@ -17,33 +17,9 @@ var port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
-var apiRouter = express.Router();
-apiRouter.route('/contacts')
-    .get(function(req,res){
-        Contact.find(function(err,contacts){
-            if (err) {
-                res.status(500).send(err);
-            } else {
-                res.json(contacts);
-            }
-        });
-    })
-    .post(function (req,res) {
-        var contact = new Contact(req.body);
-        contact.save();
-        res.status(201).send(contact);
-    });
-apiRouter.route('/contacts/:id')
-    .get(function (req,res) {
-        Contact.findById(req.params.id, function (err,contact) {
-            if (err) {
-                res.status(500).send(err);
-            } else {
-                res.json(contact);
-            }
-        });
-    });
-app.use('/api',apiRouter);
+// var contactRouter = require('./Routes/contacts.routes')();
+var contactRouter = require('./Routes/contacts.routes')(Contact);
+app.use('/api/contacts', contactRouter);
 
 app.get('/', function (req, res) {
     res.send('hello');
