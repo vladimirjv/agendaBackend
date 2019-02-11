@@ -2,7 +2,7 @@
   var Schema = mongoose.Schema;
 
 var contactModel = new Schema({
-    nombre: {
+    name: {
         type: String
     },
     phone: {
