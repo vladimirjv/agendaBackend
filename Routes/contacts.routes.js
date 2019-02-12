@@ -26,6 +26,32 @@ var routes = function (Contact) {
                     res.json(contact);
                 }
             });
+        })
+        .put(function (req,res) {
+            Contact.findById(req.params.id, function (err, contact) {
+                if (err) {
+                    res.status(500).send(err);
+                } else {
+                    contact.name = req.body.name;
+                    contact.phone = req.body.phone;
+                    contact.email = req.body.email;
+                    contact.save();
+                    res.json(contact);
+                }
+            });
+        })
+        .delete(function (req,res) {
+            Contact.remove({
+                _id:req.params.id
+            }, function (err,contact) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    res.json({
+                        message: 'Successfully deleted'
+                    });
+                }
+            });
         });
     return apiRouter;
 };
