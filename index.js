@@ -15,6 +15,7 @@ var Contact = require('./Models/contactModel');
 var contactRouter = require('./Routes/contacts.routes')(Contact);
 app.use('/api/contacts', contactRouter);
 
+
 app.get('/', function (req, res) {
     res.send('hello');
 });
